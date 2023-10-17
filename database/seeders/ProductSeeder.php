@@ -15,16 +15,9 @@ class ProductSeeder extends Seeder
             'product_code' => 'AA-101',
         ]);
 
-
         Product::query()->create([
             'product_name' => 'Shim',
             'product_code' => 'BB-202',
-        ]);
-
-
-        Product::query()->create([
-            'product_name' => 'Bosh kiyim',
-            'product_code' => 'CC-303',
         ]);
     }
 }
