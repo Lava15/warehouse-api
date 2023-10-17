@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
+use App\Http\Responses\CollectionResponse;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
+        return new CollectionResponse(
+            data: ProductResource::collection(
+                Product::query()->get()
+            ),
+            status: Response::HTTP_OK
+        );
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    }
     public function create()
     {
         //
