@@ -64,9 +64,8 @@ You can now access the server at http://localhost
 
 ## Database seeding
 
-**Populate the database with seed data with relationships which includes users, articles, comments, tags, favorites and follows. This can help you to quickly start testing the api or couple a frontend and start using it with ready content.**
 
-Open the DummyDataSeeder and set the property values as per your requirement
+Open the DatabaseSeeder and set the property values as per your requirement
 
     database/seeds/DatabaseSeeder.php
 
