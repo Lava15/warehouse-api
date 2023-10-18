@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class WarehousesController extends Controller
 {
-    public function __invoke(Request $request)
+    public function calculate(Request $request)
     {
         return response()->json('success');
     }

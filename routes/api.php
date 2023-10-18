@@ -6,6 +6,14 @@ use App\Http\Controllers\WarehousesController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::apiResource('/products', ProductsController::class);
-Route::apiResource('/materials', MaterialsController::class);
-Route::post('/warehouse-calculate', WarehousesController::class);
+Route::prefix('/products')->group(function () {
+    Route::get('/', [ProductsController::class, 'index']);
+});
+
+Route::prefix('/materials')->group(function () {
+    Route::get('/', [MaterialsController::class, 'index']);
+});
+
+Route::prefix('/warehouse')->group(function () {
+    Route::post('/calculate', [WarehousesController::class, 'calculate']);
+});
