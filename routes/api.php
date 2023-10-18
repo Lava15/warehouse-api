@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\MaterialsController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\WarehousesController;
@@ -17,3 +18,5 @@ Route::prefix('/materials')->group(function () {
 Route::prefix('/warehouse')->group(function () {
     Route::post('/calculate', [WarehousesController::class, 'calculate']);
 });
+
+Route::fallback(FallbackController::class);

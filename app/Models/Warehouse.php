@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Warehouse extends Model
 {
     protected $fillable = ['material_id', 'remainder', 'price'];
-
+    protected $casts = ['remainder' => 'integer'];
     public function meterial(): BelongsTo
     {
         return $this->belongsTo(Material::class);

@@ -10,8 +10,6 @@ class WarehouseRequest extends FormRequest
     {
         return [
             'products' => ['required', 'array'],
-            'products.id' => ['required', 'integer'],
-            'products.quantity' => ['required', 'integer'],
         ];
     }
 }

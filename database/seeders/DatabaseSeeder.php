@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Warehouse::query()->create([
             'material_id' => $textile->id,
-            'remainder' => 12,
+            'remainder' => 200,
             'price' => 1600,
         ]);
 
@@ -46,19 +46,19 @@ class DatabaseSeeder extends Seeder
         ]);
         Warehouse::query()->create([
             'material_id' => $thread->id,
-            'remainder' => 260,
+            'remainder' => 300,
             'price' => 550,
         ]);
 
         Warehouse::query()->create([
             'material_id' => $clothingButton->id,
-            'remainder' => 150,
+            'remainder' => 500,
             'price' => 300,
         ]);
 
         Warehouse::query()->create([
             'material_id' => $zipper->id,
-            'remainder' => 20,
+            'remainder' => 1000,
             'price' => 2000,
         ]);
 
