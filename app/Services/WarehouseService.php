@@ -6,6 +6,7 @@ use App\Models\Material;
 use App\Models\MaterialProduct;
 use App\Models\Product;
 use App\Models\Warehouse;
+use Exception;
 
 class WarehouseService
 {
@@ -35,7 +36,6 @@ class WarehouseService
     public function process($material_id, $quantity): array
     {
         $processResult = [];
-
         $materials = Warehouse::query()
             ->where('material_id', $material_id)
             ->when(count($this->emptyWareHouse), function ($query) {
@@ -46,7 +46,11 @@ class WarehouseService
         foreach ($materials as $warehouse) {
             $remainder = $this->warehouseParties[$warehouse->id] ?? $warehouse->remainder;
 
-            if ($remainder >= $quantity && $quantity) {
+            if ($remainder < 0) {
+                throw new Exception('Remainder cannot be less then zero');
+            }
+
+            if ($remainder >= $quantity) {
                 $processResult[] = [
                     'warehouse_id' => $warehouse->id,
                     'material_name' => $this->getMaterialName($warehouse->material_id),
@@ -54,23 +58,21 @@ class WarehouseService
                     'price' => $warehouse->price
                 ];
 
-                $this->warehouseParties[$warehouse->id] = ($this->warehouseParties[$warehouse->id] ?? $warehouse->remainder) - $quantity;
-                $quantity = 0;
+                $this->warehouseParties[$warehouse->id] = $remainder - $quantity;
+                break;
             } else {
-                $getRemaining = $remainder;
                 $processResult[] = [
                     'warehouse_id' => $warehouse->id,
                     'material_name' => $this->getMaterialName($warehouse->material_id),
-                    'quantity' => $getRemaining,
+                    'quantity' => $remainder,
                     'price' => $warehouse->price
                 ];
-
-                $quantity -= $getRemaining;
                 $this->emptyWareHouse[] = $warehouse->id;
+                $quantity -= $remainder;
             }
         }
 
-        if ($quantity) {
+        if ($quantity > 0) {
             $processResult[] = [
                 'warehouse_id' => null,
                 'material_name' => $this->getMaterialName($material_id),
